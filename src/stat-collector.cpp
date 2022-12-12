@@ -1,4 +1,4 @@
-#include "stat-collector.h"
+#include "stat-collector.hpp"
 #include <iostream>
 
 void CharacterCountMap::addCharacter(char character) { 
