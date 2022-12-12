@@ -1,13 +1,13 @@
 #include "stat-collector.hpp"
 #include <iostream>
 
-void CharacterCountMap::sortDesc(CharacterStatistics *array, int n)
+void CharacterCountMap::sort(CharacterStatistics *array, int n)
 {
   for (int i = 0; i < n; i++)
   {
     for (int j = i; j < n - 1; j++)
     {
-      if(array[j].getPercentage() < array[j+1].getPercentage()) {
+      if(array[j].getOccurrences() > array[j+1].getOccurrences()) {
         CharacterStatistics tmp = array[j];
         array[j] = array[j+1];
         array[j + 1] = tmp; 
@@ -38,7 +38,6 @@ void CharacterCountMap::printNonEmpty()
     if (data[i] > 0)
     {
       std::cout << "[" << i << "] -> " << data[i];
-      std::cout << ", " << (float)data[i] / (float)this->size * 100 << "%" << std::endl;
     }
   }
 }
@@ -61,7 +60,7 @@ int CharacterCountMap::countNonEmpty()
   return count;
 }
 
-CharacterStatistics *CharacterCountMap::getArrayPercDesc()
+CharacterStatistics *CharacterCountMap::getSortedArray()
 {
   int total = this->countNonEmpty();
   CharacterStatistics *array = new CharacterStatistics[total];
@@ -72,18 +71,18 @@ CharacterStatistics *CharacterCountMap::getArrayPercDesc()
     if (data[lastIndex] > 0)
     {
       array[shift].setCharacter(lastIndex);
-      (array + shift)->setPercentage((float)data[lastIndex] / (float)size);
+      array[shift].setOccurrences(data[lastIndex]);
       shift++;
     }
   }
 
-  sortDesc(array, total);
+  sort(array, total);
   return array;
 }
 
 std::ostream &operator<<(std::ostream &os, const CharacterStatistics &cs)
 {
-  os << "[" << cs.getCharacter() << ", " << cs.getPercentage() << "%]";
+  os << "[" << cs.getCharacter() << ", " << cs.getOccurrences() << "]";
   return os;
 }
 
@@ -91,7 +90,7 @@ CharacterStatistics::CharacterStatistics()
 {
 }
 
-CharacterStatistics::CharacterStatistics(char character, float percentage)
+CharacterStatistics::CharacterStatistics(char character, int percentage)
 {
 }
 
@@ -100,9 +99,9 @@ char CharacterStatistics::getCharacter() const
   return character;
 }
 
-float CharacterStatistics::getPercentage() const
+int CharacterStatistics::getOccurrences() const
 {
-  return percentage;
+  return occurrences;
 }
 
 void CharacterStatistics::setCharacter(char character)
@@ -110,7 +109,7 @@ void CharacterStatistics::setCharacter(char character)
   this->character = character;
 }
 
-void CharacterStatistics::setPercentage(float percentage)
+void CharacterStatistics::setOccurrences(int percentage)
 {
-  this->percentage = percentage;
+  this->occurrences = percentage;
 }

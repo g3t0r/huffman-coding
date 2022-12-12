@@ -7,15 +7,15 @@ class CharacterStatistics
 {
 private:
   char character;
-  float percentage;
+  int occurrences;
 
 public:
   CharacterStatistics();
-  CharacterStatistics(char character, float percentage);
+  CharacterStatistics(char character, int occurrences);
   char getCharacter() const;
-  float getPercentage() const;
+  int getOccurrences() const;
   void setCharacter(char character);
-  void setPercentage(float percentage);
+  void setOccurrences(int occurrences);
 
   friend std::ostream & operator << (std::ostream& os, const CharacterStatistics& cs);
 };
@@ -25,7 +25,7 @@ class CharacterCountMap
 private:
   int data[ASCII_SIZE]{0};
   int size = 0;
-  void sortDesc(CharacterStatistics* array, int n);
+  void sort(CharacterStatistics* array, int n);
 
 public:
   void addCharacter(char character);
@@ -33,6 +33,6 @@ public:
   void printNonEmpty();
   int getSize();
   int countNonEmpty();
-  CharacterStatistics *getArrayPercDesc();
+  CharacterStatistics *getSortedArray();
 };
 #endif
