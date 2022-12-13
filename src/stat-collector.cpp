@@ -76,7 +76,7 @@ CharacterStatistics *CharacterCountMap::getSortedArray()
     }
   }
 
-  sort(array, total);
+  // sort(array, total);
   return array;
 }
 
