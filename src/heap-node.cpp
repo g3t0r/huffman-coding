@@ -109,7 +109,7 @@ void printBinPreorder(HeapNode& root, std::string s) {
     }
 }
 
-HeapNode *buildTree(std::vector<HeapNode *> list)
+HeapNode *buildTree(std::vector<HeapNode *> &list)
 {
   while (list.size() > 1)
   {

@@ -3,6 +3,16 @@
 #include "heap-node.hpp"
 #include <vector>
 
+HeapNode *generateTree(const char *txt);
+void generateMappingForTree(MappingTable *mp, HeapNode *root, std::string s);
+void MappingTable::put(char c, std::string s)
+{
+    map[c] = s;
+}
+std::string MappingTable::get(char c)
+{
+    return map[c];
+}
 MappingTable *MappingTable::generateMappingTable(const char *txt)
 {
     HeapNode *root = generateTree(txt);
