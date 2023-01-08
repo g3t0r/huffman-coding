@@ -7,13 +7,27 @@ void CharacterCountMap::sort(CharacterStatistics *array, int n)
   {
     for (int j = i; j < n - 1; j++)
     {
-      if(array[j].getOccurrences() > array[j+1].getOccurrences()) {
+      if (array[j].getOccurrences() > array[j + 1].getOccurrences())
+      {
         CharacterStatistics tmp = array[j];
-        array[j] = array[j+1];
-        array[j + 1] = tmp; 
+        array[j] = array[j + 1];
+        array[j + 1] = tmp;
       }
     }
   }
+}
+
+CharacterCountMap *CharacterCountMap::fromText(const char *text)
+{
+  CharacterCountMap *map = new CharacterCountMap();
+  int i = 0;
+  char c;
+  while (c = text[i])
+  {
+    map->addCharacter(c);
+    i++;
+  }
+  return map;
 }
 
 void CharacterCountMap::addCharacter(char character)
@@ -58,6 +72,11 @@ int CharacterCountMap::countNonEmpty()
     }
   }
   return count;
+}
+
+int CharacterCountMap::get(char c)
+{
+  return data[c];
 }
 
 CharacterStatistics *CharacterCountMap::getSortedArray()

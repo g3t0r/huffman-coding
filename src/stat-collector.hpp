@@ -28,11 +28,13 @@ private:
   void sort(CharacterStatistics* array, int n);
 
 public:
+  static CharacterCountMap* fromText(const char *text);
   void addCharacter(char character);
   void printInfo();
   void printNonEmpty();
   int getSize();
   int countNonEmpty();
+  int get(char c);
   CharacterStatistics *getSortedArray();
 };
 #endif

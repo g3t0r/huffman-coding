@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+
 class HeapNode
 {
 private:
@@ -21,3 +23,5 @@ public:
 
 void printPreorder(HeapNode& root, int level = 0);
 void printBinPreorder(HeapNode& root, std::string s = "");
+HeapNode* popTheSmallest(std::vector<HeapNode *> &list);
+HeapNode* buildTree(std::vector<HeapNode*> &list);
