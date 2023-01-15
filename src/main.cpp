@@ -1,4 +1,5 @@
 #include "mapping-table.hpp"
+#include "bit-writer.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -19,14 +20,16 @@ int main()
 
   std::ofstream compressed;
   compressed.open("compressed.bin", std::ios::binary);
-  uint8_t test = 123;
-  compressed.write((char *)&test, sizeof(test));
-  test = 204;
-  compressed.write((char *)&test, sizeof(test));
-  test = 77;
-  compressed.write((char *)&test, sizeof(test));
-  test = 32;
-  compressed.write((char *)&test, sizeof(test));
+  BitWriter *bw = new BitWriter(&compressed);
+  bw->writeBit('0');
+  bw->writeBit('0');
+  bw->writeBit('0');
+  bw->writeBit('0');
+  bw->writeBit('1');
+  bw->writeBit('1');
+  bw->writeBit('1');
+  bw->writeBit('1');
+
   
 
 

@@ -1,17 +1,18 @@
 CC := g++
 
-default: all
+default: clean all
 
+.PHONY: all
 all: producer reader
 
 .PHONY: clean
 clean:
-	rm -rf ./bin/
+	rm -rf ./bin/ compressed.bin
 
 .PHONY: producer
 producer:
 	mkdir -p bin
-	$(CC) src/main.cpp src/heap-node.cpp src/mapping-table.cpp src/stat-collector.cpp -o bin/producer.o
+	$(CC) src/main.cpp src/heap-node.cpp src/mapping-table.cpp src/stat-collector.cpp src/bit-writer.cpp -o bin/producer.o
 
 .PHONY: reader
 reader:

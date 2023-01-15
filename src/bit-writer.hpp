@@ -1,32 +1,28 @@
 #ifndef BIT_WRITER
 #define BIT_WRITER
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <fstream>
+#include <stdint.h>
 
-typedef unsigned char byte;
+typedef uint8_t byte;
 
 class BitWriter
 {
 private:
     int index = 0;
-    byte buf = 0;
-    FILE* file; 
-    void writeBit(int bit);
+    char buf[8];
+
+    std::ofstream * file;
+    
     void writeByte();
+    byte buffToByte();
+    void clearBuff();
 
 public:
-    void writeZero();
-    void wrtieOne();
+    void writeBit(char bit);
+    void close();
+    BitWriter(std::ofstream *file);
+    ~BitWriter(){};
 };
-
-BitWriter::BitWriter(/* args */)
-{
-}
-
-BitWriter::~BitWriter()
-{
-}
-
 
 #endif
