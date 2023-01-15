@@ -3,13 +3,26 @@
 #include "heap-node.hpp"
 #include <vector>
 
+std::ostream &operator<<(std::ostream &os, const MappingTable &mt)
+{
+    for (int i = 0; i < 128; i++)
+    {
+        std::string code = mt.get(i);
+        if (code.empty())
+            continue;
+
+        os << (char)i << "=" << code << std::endl;
+    }
+    return os;
+}
+
 HeapNode *generateTree(const char *txt);
 void generateMappingForTree(MappingTable *mp, HeapNode *root, std::string s);
 void MappingTable::put(char c, std::string s)
 {
     map[c] = s;
 }
-std::string MappingTable::get(char c)
+std::string MappingTable::get(char c) const
 {
     return map[c];
 }
