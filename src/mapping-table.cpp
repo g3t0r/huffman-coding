@@ -11,7 +11,7 @@ std::ostream &operator<<(std::ostream &os, const MappingTable &mt)
         if (code.empty())
             continue;
 
-        os << (char)i << "=" << code << std::endl;
+        os <<  (char)i << "(" << i << ")" << "=" << code << std::endl;
     }
     return os;
 }

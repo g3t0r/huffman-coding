@@ -18,14 +18,7 @@ void BitWriter::writeBit(char bit)
 
 void BitWriter::writeByte()
 {
-    std::cout << "Writing byte" << std::endl;
-    std::cout << "[ ";
-    for (int i = 0; i < 8; i++)
-    {
-        std::cout << buf[i] << " ";
-    }
     byte b = buffToByte();
-    std::cout << "], = " << (unsigned int)b << std::endl;
     file->write((char *)&b, sizeof(uint8_t));
 }
 
@@ -55,6 +48,7 @@ void BitWriter::clearBuff()
 
 void BitWriter::close()
 {
+    writeByte();
 }
 
 BitWriter::BitWriter(std::ofstream *file)

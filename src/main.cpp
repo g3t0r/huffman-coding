@@ -5,12 +5,18 @@
 #include <string>
 #include <fstream>
 #include <stdint.h>
-
+#include <string.h>
 
 int main()
 {
-  std::string txt = "ania ma kota";
-  MappingTable *mt = MappingTable::generateMappingTable(txt.c_str());
+  std::ifstream srcFile;
+  srcFile.open("plain.txt");
+  char *buf = (char *)calloc(4096, 1);
+  srcFile.read(buf, 4096);
+  realloc(buf, strlen(buf) + 1);
+  std::string txt(buf);
+  std::cout << "Loaded text: " <<  txt;
+  MappingTable *mt = MappingTable::generateMappingTable(buf);
   std::cout << *mt;
 
   std::ofstream mt_file;
@@ -21,17 +27,17 @@ int main()
   std::ofstream compressed;
   compressed.open("compressed.bin", std::ios::binary);
   BitWriter *bw = new BitWriter(&compressed);
-  bw->writeBit('0');
-  bw->writeBit('0');
-  bw->writeBit('0');
-  bw->writeBit('0');
-  bw->writeBit('1');
-  bw->writeBit('1');
-  bw->writeBit('1');
-  bw->writeBit('1');
 
-  
-
+  int i = 0;
+  char c = 0;
+  while((c = buf[i]) != '\0' ) {
+    std::string bin = mt->get(c);
+    for(int j = 0; j < bin.size(); j++) {
+      bw->writeBit(bin[j]);
+    }
+    i++;
+  }
+  bw->close();
 
   return 0;
 }
