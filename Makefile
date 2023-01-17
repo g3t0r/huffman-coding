@@ -17,4 +17,4 @@ producer:
 .PHONY: reader
 reader:
 	mkdir -p bin
-	$(CC) src/reader.cpp -o bin/reader.o
+	$(CC) src/reader.cpp src/heap-node.cpp src/mapping-table.cpp src/stat-collector.cpp src/bit-writer.cpp -o bin/reader.o

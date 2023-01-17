@@ -2,6 +2,25 @@
 #include "stat-collector.hpp"
 #include "heap-node.hpp"
 #include <vector>
+#include <stdint.h>
+#include <string>
+#include <iostream>
+
+MappingTable *importMappingTable(std::ifstream &input)
+{
+    MappingTable *mt = new MappingTable();
+    std::string line;
+
+    int key;
+    std::string value;
+
+    while (input >> key >> value)
+    {
+        mt->put(key, value);
+    }
+
+    return mt;
+}
 
 std::ostream &operator<<(std::ostream &os, const MappingTable &mt)
 {
@@ -11,7 +30,7 @@ std::ostream &operator<<(std::ostream &os, const MappingTable &mt)
         if (code.empty())
             continue;
 
-        os <<  (char)i << "(" << i << ")" << "=" << code << std::endl;
+        os << i << " " << code << std::endl;
     }
     return os;
 }
@@ -25,6 +44,17 @@ void MappingTable::put(char c, std::string s)
 std::string MappingTable::get(char c) const
 {
     return map[c];
+}
+char MappingTable::find(std::string bin)
+{
+    for(int i = 0; i < ASCII_SIZE; i++) {
+        if(map[i].empty())
+            continue;
+        
+        if(map[i] == bin)
+            return i;
+    }
+    return -1;
 }
 MappingTable *MappingTable::generateMappingTable(const char *txt)
 {
@@ -44,16 +74,17 @@ void generateMappingForTree(MappingTable *mp, HeapNode *root, std::string s)
     if (root->getLeft() != nullptr)
     {
         std::string local = s;
-        local.append("0");
+        local.append("1");
         generateMappingForTree(mp, root->getLeft(), local);
     }
 
     if (root->getRight() != nullptr)
     {
         std::string local = s;
-        local.append("1");
+        local.append("0");
         generateMappingForTree(mp, root->getRight(), local);
     }
+
 }
 
 HeapNode *generateTree(const char *txt)

@@ -11,11 +11,11 @@ int main()
 {
   std::ifstream srcFile;
   srcFile.open("plain.txt");
-  char *buf = (char *)calloc(4096, 1);
-  srcFile.read(buf, 4096);
-  realloc(buf, strlen(buf) + 1);
+  char *buf = (char *)calloc(8096, 1);
+  srcFile.read(buf, 8096);
+  buf = (char *)realloc(buf, strlen(buf) + 1);
   std::string txt(buf);
-  std::cout << "Loaded text: " <<  txt;
+  std::cout << "Loaded text: " << txt;
   MappingTable *mt = MappingTable::generateMappingTable(buf);
   std::cout << *mt;
 
@@ -30,9 +30,11 @@ int main()
 
   int i = 0;
   char c = 0;
-  while((c = buf[i]) != '\0' ) {
+  while ((c = buf[i]) != '\0')
+  {
     std::string bin = mt->get(c);
-    for(int j = 0; j < bin.size(); j++) {
+    for (int j = 0; j < bin.size(); j++)
+    {
       bw->writeBit(bin[j]);
     }
     i++;
