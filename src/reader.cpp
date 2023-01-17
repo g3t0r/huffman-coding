@@ -31,6 +31,9 @@ int main() {
     // std::cout << *mt;
 
     o.open("compressed.bin", std::ios::binary);
+    size_t expected;
+    o >> expected;
+    std::cout << "expected: " << expected << std::endl;
     while(o.peek() != EOF || !o.eof()) {
         o.read((char *)&c, sizeof(char));
         convertedToBin += dec2bin(c);
@@ -39,13 +42,16 @@ int main() {
     std::string decoded;
     std::string code;
     size_t convertedSize = convertedToBin.size();
+    size_t found = 0;
     for(int i =0; i < convertedSize; i++) {
+        if(found == expected)
+            break;
         code += convertedToBin[i];
         char l;
         if((l = mt->find(code)) == -1) {
             continue;
         }
-
+        found++;
         decoded += l;
         code = "";
     }
