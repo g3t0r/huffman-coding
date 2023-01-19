@@ -7,7 +7,7 @@ all: producer reader
 
 .PHONY: clean
 clean:
-	rm -rf ./bin/ compressed.bin
+	rm -rf ./bin/ compressed.bin mapping-table.txt decoded.txt
 
 .PHONY: producer
 producer:

@@ -17,9 +17,7 @@ int main()
   srcFile.read(buf, MAX_SIZE);
   buf = (char *)realloc(buf, strlen(buf) + 1);
   std::string txt(buf);
-  std::cout << "Loaded text size: " << txt.size() << std::endl;
   MappingTable *mt = MappingTable::generateMappingTable(buf);
-  std::cout << *mt;
 
   std::ofstream mt_file;
   mt_file.open("mapping-table.txt");

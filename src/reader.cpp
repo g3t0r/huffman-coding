@@ -28,12 +28,9 @@ int main() {
 
     std::string convertedToBin;
 
-    // std::cout << *mt;
-
     o.open("compressed.bin", std::ios::binary);
     size_t expected;
     o >> expected;
-    std::cout << "expected: " << expected << std::endl;
     while(o.peek() != EOF || !o.eof()) {
         o.read((char *)&c, sizeof(char));
         convertedToBin += dec2bin(c);
